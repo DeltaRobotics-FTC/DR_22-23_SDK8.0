@@ -30,8 +30,8 @@ public class firstCameraTest extends LinearOpMode
     double CbUpperUpdate = 255;
 
     // Pink Range                                      Y      Cr     Cb
-    public static Scalar scalarLowerYCrCb = new Scalar(  0.0, 200, 0);
-    public static Scalar scalarUpperYCrCb = new Scalar(255.0, 255.0, 100);
+    public static Scalar scalarLowerYCrCb = new Scalar(  16, 120, 120);
+    public static Scalar scalarUpperYCrCb = new Scalar(235.0, 196.0, 240);
 
     @Override
     public void runOpMode() throws InterruptedException
