@@ -13,10 +13,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //import org.firstinspires.ftc.teamcode.RobotHardware;
 
 
-@TeleOp(name="earlyTankDrive")
+@TeleOp(name="Hello")
 //@Disabled
 
-public class earlyTankDrive extends LinearOpMode
+public class secretEarlyTankDrive extends LinearOpMode
 {
     public DcMotor motorRF = null;
     public DcMotor motorLF = null;
@@ -113,7 +113,7 @@ public class earlyTankDrive extends LinearOpMode
                 Claw1.setPosition(.7);
             }
 
-            
+
 
             slidePower = gamepad2.left_stick_y * .5;
 
@@ -150,6 +150,8 @@ public class earlyTankDrive extends LinearOpMode
             else{
                 slidePosTarget = 0;
             }
+
+            //Joseph and Justin testing with button press to move
 
             if(slidePosTarget == 1)
             {
@@ -252,14 +254,14 @@ public class earlyTankDrive extends LinearOpMode
             }
 
 
-             if(gamepad2.dpad_up){
-                 Slide1.setPower(0.5);
-                 Slide0.setPower(-0.5);
-             }
-             if(gamepad2.dpad_down){
-                 Slide1.setPower(-0.5);
-                 Slide0.setPower(0.5);
-             }
+            if(gamepad2.dpad_up){
+                Slide1.setPower(0.5);
+                Slide0.setPower(-0.5);
+            }
+            if(gamepad2.dpad_down){
+                Slide1.setPower(-0.5);
+                Slide0.setPower(0.5);
+            }
 
 
             telemetry.addData("Slide0Encoder",Slide0.getCurrentPosition());
