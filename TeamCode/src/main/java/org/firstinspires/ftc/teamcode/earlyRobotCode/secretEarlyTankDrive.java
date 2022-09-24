@@ -147,9 +147,9 @@ public class secretEarlyTankDrive extends LinearOpMode
             else if (gamepad2.y){
                 slidePosTarget = 4;
             }
-            else{
-                slidePosTarget = 0;
-            }
+//            else{
+//                slidePosTarget = 0;
+//            }
 
             //Joseph and Justin testing with button press to move
 
@@ -157,24 +157,24 @@ public class secretEarlyTankDrive extends LinearOpMode
             {
                 if(Slide1.getCurrentPosition() > slidePosDown)
                 {
-                    while (Slide1.getCurrentPosition() > slidePosDown)
-                    {
-                        Slide1.setPower(-.5);
-                        Slide0.setPower(-.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    }
+                    Slide1.setPower(-.5);
+                    Slide0.setPower(-.5);
+                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
                 }
 
-                if(Slide1.getCurrentPosition() < slidePosDown)
+                else if(Slide1.getCurrentPosition() < slidePosDown)
                 {
-                    while (Slide1.getCurrentPosition() < slidePosDown)
-                    {
-                        Slide1.setPower(0.25);
-                        Slide0.setPower(0.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    }
+                    Slide1.setPower(0.25);
+                    Slide0.setPower(0.25);
+                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+                }
+
+                else {
+                    slidePosTarget = 0;
                 }
             }
 
