@@ -36,6 +36,9 @@ public class earlyTankDrive extends LinearOpMode
 
     public double slidePower = 0;
 
+    int slidePose0 =0;
+    int slidePose1 =0;
+
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -113,8 +116,50 @@ public class earlyTankDrive extends LinearOpMode
                 Claw1.setPosition(.7);
             }
 
-            
 
+            if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 > 0){
+                if(gamepad2.dpad_up){
+                    slidePose1 -= 12;
+                    slidePose0 -= 12;
+                }
+            }
+
+            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < -4000){
+                if(gamepad2.dpad_down){
+                    slidePose1 += 12;
+                    slidePose0 += 12;
+                }
+            }
+            else {
+                if(gamepad2.dpad_up){
+                    slidePose1 -= 12;
+                    slidePose0 -= 12;
+                }
+                else if(gamepad2.dpad_down){
+                    slidePose1 += 12;
+                    slidePose0 += 12;
+                }
+            }
+
+
+            if(gamepad2.dpad_left){
+                slidePose1 += 4;
+                slidePose0 -= 4;
+            }
+            else if(gamepad2.dpad_right){
+                slidePose1 -= 4;
+                slidePose0 += 4;
+            }
+
+
+            Slide1.setTargetPosition(slidePose1);
+            Slide1.setPower(1);
+            Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Slide0.setTargetPosition(slidePose0);
+            Slide0.setPower(1);
+            Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+/*
             slidePower = gamepad2.left_stick_y * .5;
 
             if (Slide1.getCurrentPosition() > 0 && slidePower > 0){
@@ -134,6 +179,9 @@ public class earlyTankDrive extends LinearOpMode
                 Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
 
+            */
+
+/*
 
             if (gamepad2.a){
                 slidePosTarget = 1;
@@ -250,16 +298,19 @@ public class earlyTankDrive extends LinearOpMode
                     }
                 }
             }
+*/
 
-
+            /*
              if(gamepad2.dpad_up){
-                 Slide1.setPower(0.5);
-                 Slide0.setPower(-0.5);
-             }
-             if(gamepad2.dpad_down){
                  Slide1.setPower(-0.5);
                  Slide0.setPower(0.5);
              }
+             if(gamepad2.dpad_down){
+                 Slide1.setPower(0.5);
+                 Slide0.setPower(-0.5);
+             }
+
+             */
 
 
             telemetry.addData("Slide0Encoder",Slide0.getCurrentPosition());

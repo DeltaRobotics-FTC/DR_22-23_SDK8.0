@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="Hello")
-//@Disabled
+@Disabled
 
 public class secretEarlyTankDrive extends LinearOpMode
 {
@@ -164,7 +164,7 @@ public class secretEarlyTankDrive extends LinearOpMode
 
                 }
 
-                else if(Slide1.getCurrentPosition() < slidePosDown)
+                else if(Slide1.getCurrentPosition() < slidePosDown - 5)
                 {
                     Slide1.setPower(0.25);
                     Slide0.setPower(0.25);
@@ -230,26 +230,26 @@ public class secretEarlyTankDrive extends LinearOpMode
 
             if(slidePosTarget == 4)
             {
-                if(Slide1.getCurrentPosition() > slidePosLow)
+                if(Slide1.getCurrentPosition() > slidePosLow - 3)
                 {
-                    while (Slide1.getCurrentPosition() > slidePosLow)
-                    {
-                        Slide1.setPower(-.5);
-                        Slide0.setPower(-.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    }
+                    Slide1.setPower(-.5);
+                    Slide0.setPower(-.5);
+                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
                 }
 
-                if(Slide1.getCurrentPosition() < slidePosLow)
+                else if(Slide1.getCurrentPosition() < slidePosLow + 3)
                 {
-                    while (Slide1.getCurrentPosition() < slidePosLow)
-                    {
-                        Slide1.setPower(.25);
-                        Slide0.setPower(.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    }
+                    Slide1.setPower(.25);
+                    Slide0.setPower(.25);
+                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+                }
+                else
+                {
+                slidePosTarget = 0;
                 }
             }
 
