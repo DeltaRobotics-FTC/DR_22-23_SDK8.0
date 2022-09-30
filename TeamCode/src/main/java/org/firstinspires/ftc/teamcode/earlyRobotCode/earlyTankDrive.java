@@ -86,25 +86,25 @@ public class earlyTankDrive extends LinearOpMode
         while (opModeIsActive())
         {
             //Code goes here
-            if (gamepad1.dpad_down) {
-                motorRF.setPower(.5 * (gamepad1.right_stick_y + gamepad1.right_stick_x));
-                motorRB.setPower(.5 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x)));
-                motorLB.setPower(.5 * (gamepad1.right_stick_y - gamepad1.right_stick_x));
-                motorLF.setPower(.5 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x)));
+            if (gamepad1.a) {
+                motorRF.setPower(.5 * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+                motorRB.setPower(.5 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x)));
+                motorLB.setPower(.5 * (gamepad1.left_stick_y - gamepad1.left_stick_x));
+                motorLF.setPower(.5 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
 
-            else if (gamepad1.dpad_up) {
-                motorRF.setPower(.1 * (gamepad1.right_stick_y + gamepad1.right_stick_x));
-                motorRB.setPower(.1 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x)));
-                motorLB.setPower(.1 * (gamepad1.right_stick_y - gamepad1.right_stick_x));
-                motorLF.setPower(.1 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x)));
+            else if (gamepad1.y) {
+                motorRF.setPower(.1 * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+                motorRB.setPower(.1 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x)));
+                motorLB.setPower(.1 * (gamepad1.left_stick_y - gamepad1.left_stick_x));
+                motorLF.setPower(.1 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
 
             else {
-                motorRF.setPower(1 * (gamepad1.right_stick_y + gamepad1.right_stick_x));
-                motorRB.setPower(1 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x)));
-                motorLB.setPower(1 * (gamepad1.right_stick_y - gamepad1.right_stick_x));
-                motorLF.setPower(1 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x)));
+                motorRF.setPower(1 * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+                motorRB.setPower(1 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x)));
+                motorLB.setPower(1 * (gamepad1.left_stick_y - gamepad1.left_stick_x));
+                motorLF.setPower(1 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
 
             if (gamepad1.left_bumper) {
@@ -124,7 +124,7 @@ public class earlyTankDrive extends LinearOpMode
                 }
             }
 
-            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < -4000){
+            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < -4300){
                 if(gamepad2.dpad_down){
                     slidePose1 += 12;
                     slidePose0 += 12;
@@ -151,6 +151,30 @@ public class earlyTankDrive extends LinearOpMode
                 slidePose0 += 4;
             }
 
+            if(gamepad2.a)
+            {
+                slidePose1 = -4300;
+                slidePose0 = -4300;
+            }
+
+            if(gamepad2.b)
+            {
+                slidePose1 = 0;
+                slidePose0 = 0;
+            }
+
+            if(gamepad2.x)
+            {
+                slidePose1 = -4000;
+                slidePose0 = -3600;
+            }
+
+            if(gamepad2.y)
+            {
+                slidePose1 = -2300;
+                slidePose0 = -2300;
+            }
+
 
             Slide1.setTargetPosition(slidePose1);
             Slide1.setPower(1);
@@ -158,6 +182,8 @@ public class earlyTankDrive extends LinearOpMode
             Slide0.setTargetPosition(slidePose0);
             Slide0.setPower(1);
             Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
 
 /*
             slidePower = gamepad2.left_stick_y * .5;
