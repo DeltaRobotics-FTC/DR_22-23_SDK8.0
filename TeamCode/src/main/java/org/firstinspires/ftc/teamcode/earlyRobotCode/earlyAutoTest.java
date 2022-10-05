@@ -59,11 +59,12 @@ public class earlyAutoTest extends LinearOpMode
         //drive code here
         //drive(1, 1, 1000);
         //sleep(1000);
-        betterPivot(-90);
+        betterPivot(180);
+
         //sleep(1000);
         //encoderDriveForward(1000, 1);
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        while(true){
+        while(isStopRequested()){
 
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             telemetry.addData("current angle" , angles.firstAngle);
@@ -72,7 +73,7 @@ public class earlyAutoTest extends LinearOpMode
     }
 
 
-    public void betterPivot(int angle)
+    public void betterPivot(double angle)
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
         ElapsedTime PIDLoopTime = new ElapsedTime();
@@ -83,7 +84,8 @@ public class earlyAutoTest extends LinearOpMode
         double deltaT = 0;//time it takes to make one loop dt
         double turnpower;
         double angleError;
-        double Kp = 0.1;//proportional gain
+        double Kp = 0.0125;//proportional gain
+        double angleWraped;
 
 
         double I = 0;
@@ -99,11 +101,43 @@ public class earlyAutoTest extends LinearOpMode
             angle += 360;
         }
 
+        if (angle > 179 || angle < -179)
+        {
+            angle = 179;
+        }
+
         while (I == 0)
         {
 
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            deltaT = PIDLoopTime.nanoseconds() - OldPIDLoopTime;
+
+            //PID math
+
+
+            if(angles.firstAngle >= 0) {
+                angleError = Math.abs(angle) - Math.abs(angles.firstAngle);
+            }
+            else {
+                angleError = -Math.abs(angle) + Math.abs(angles.firstAngle);
+            }
+
+            turnpower = (angleError * Kp);
+
+            if(turnpower >= 0) {
+                turnpower +=.1;
+            }
+            else {
+                turnpower -= .1;
+            }
+
+
+
+
+
+
+            /*
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            deltaT = (PIDLoopTime.nanoseconds() - OldPIDLoopTime)/1000000000;
 
             //PID math
             //rate limit
@@ -117,9 +151,13 @@ public class earlyAutoTest extends LinearOpMode
 
             angleError = ARL - angles.firstAngle;
 
+
             turnpower = angleError * Kp;
 
+
+
             OldPIDLoopTime = PIDLoopTime.nanoseconds();
+             */
 
 
             robot.motorRF.setPower(turnpower);
@@ -139,7 +177,7 @@ public class earlyAutoTest extends LinearOpMode
 
 
 
-            if(angles.firstAngle > angle - 2 && angles.firstAngle < angle + 2)
+            if(angles.firstAngle > angle - 1 && angles.firstAngle < angle + 1)
             {
                 J++;
 
