@@ -59,7 +59,8 @@ public class earlyAutoTest extends LinearOpMode
         //drive code here
         //drive(1, 1, 1000);
         //sleep(1000);
-        betterPivot(180);
+        betterPivot(-10);
+        betterPivot(90);
 
         //sleep(1000);
         //encoderDriveForward(1000, 1);
@@ -83,9 +84,13 @@ public class earlyAutoTest extends LinearOpMode
         double rate = angle / rateTime;
         double deltaT = 0;//time it takes to make one loop dt
         double turnpower;
-        double angleError;
+        double oldAngleError = 0;
+        double angleError = 0;
         double Kp = 0.0125;//proportional gain
         double angleWraped;
+        double reset = 0;
+        double Ki = 0.0001;
+        double Kd = 0.01;
 
 
         double I = 0;
@@ -112,28 +117,32 @@ public class earlyAutoTest extends LinearOpMode
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
             //PID math
-
-
-            if(angles.firstAngle >= 0) {
+            if (angles.firstAngle >= 0 && angle > 0) {
                 angleError = Math.abs(angle) - Math.abs(angles.firstAngle);
+                //reset = reset + (Ki * angleError);
+                turnpower = (angleError * Kp);// + reset + (Kd * (angleError - oldAngleError));
+            }
+            else if(angles.firstAngle <= 0 && angle > 0){
+                angleError = Math.abs(angle) - Math.abs(angles.firstAngle);
+                turnpower = (angleError * Kp);
             }
             else {
                 angleError = -Math.abs(angle) + Math.abs(angles.firstAngle);
+                //reset = reset - (Ki * angleError);
+                turnpower = (angleError * Kp);// + reset + (Kd * (angleError - oldAngleError));
             }
 
-            turnpower = (angleError * Kp);
 
+            oldAngleError = angleError;
+
+            /*
             if(turnpower >= 0) {
                 turnpower +=.1;
             }
             else {
                 turnpower -= .1;
             }
-
-
-
-
-
+             */
 
             /*
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -173,8 +182,6 @@ public class earlyAutoTest extends LinearOpMode
             telemetry.addData("turn power", turnpower);
 
             telemetry.update();
-
-
 
 
             if(angles.firstAngle > angle - 1 && angles.firstAngle < angle + 1)
@@ -217,7 +224,6 @@ public class earlyAutoTest extends LinearOpMode
 
 
     }
-
 
     public void  betterDrive(int angle, double PowerX, double PowerY, double speed, double time)
     {
