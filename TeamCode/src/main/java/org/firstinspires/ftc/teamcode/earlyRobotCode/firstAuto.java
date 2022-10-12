@@ -214,34 +214,46 @@ public class firstAuto extends LinearOpMode
         /* Actually do something useful */
         if(tagOfInterest == null || tagOfInterest.id == LEFT){
             //trajectory 1 dot
-            drive(0.5,1,500);
-            drive(-0.5,1,100);
-            Claw0.setPosition(.6);
-            Claw1.setPosition(.4);
-            sleep(500);
-            slidePose1 = -200;
-            slidePose0 = -200;
-            liftSlides(slidePose1, slidePose0);
+
+            autoStart();
             sleep(1000);
+
             drive(-1,0.75,1340);
             sleep(1000);
+
             betterPivot(45);
+
             slidePose1 = -4200;
             slidePose0 = -4200;
+
             liftSlides(slidePose1, slidePose0);
             sleep(2000);
-            drive(1,0.5,400);
+
+            drive(1,0.5,430);
+            sleep(500);
+
             Claw0.setPosition(.3);
             Claw1.setPosition(.7);
             sleep(500);
+
             drive(-1,0.5,400);
+
             slidePose1 = -100;
             slidePose0 = -100;
+
             liftSlides(slidePose1, slidePose0);
             sleep(1000);
         }
         else if(tagOfInterest.id == MIDDLE){
             //trajectory 2 dots
+
+            //autoStart();
+
+            drive(-1,0.5,1900);
+            sleep(1000);
+
+            betterPivot(-135);
+
         }
         else{
             //trajectory 3 dots
@@ -267,6 +279,17 @@ public class firstAuto extends LinearOpMode
         Slide0.setTargetPosition(slidePos0);
         Slide0.setPower(1);
         Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+    public void autoStart()
+    {
+        drive(0.5,1,500);
+        drive(-0.5,1,100);
+            Claw0.setPosition(.6);
+            Claw1.setPosition(.4);
+        sleep(500);
+        slidePose1 = -200;
+        slidePose0 = -200;
+        liftSlides(slidePose1, slidePose0);
     }
 
     public void betterPivot(double angle)
