@@ -218,8 +218,10 @@ public class firstAuto extends LinearOpMode
             autoStart();
             sleep(1000);
 
-            drive(-1,0.75,1340);
-            sleep(1000);
+            // one encoder tick = 0.02426 inches
+            // desired distance in inches / 0.02426 inches = encoder ticks needed
+            encoderDriveForward(-2000, -0.75);
+            sleep(2000);
 
             betterPivot(45);
 
@@ -229,20 +231,27 @@ public class firstAuto extends LinearOpMode
             liftSlides(slidePose1, slidePose0);
             sleep(2000);
 
-            drive(1,0.5,430);
-            sleep(500);
+            encoderDriveForward(375, 0.5);
+            sleep(2000);
 
             Claw0.setPosition(.3);
             Claw1.setPosition(.7);
             sleep(500);
 
-            drive(-1,0.5,400);
+            encoderDriveForward(-375, -0.5);
+            sleep(2000);
 
             slidePose1 = -100;
             slidePose0 = -100;
 
             liftSlides(slidePose1, slidePose0);
             sleep(1000);
+
+            betterPivot(-90);
+            sleep(2000);
+
+            encoderDriveForward(900, 0.75);
+            sleep(2000);
         }
         else if(tagOfInterest.id == MIDDLE){
             //trajectory 2 dots
