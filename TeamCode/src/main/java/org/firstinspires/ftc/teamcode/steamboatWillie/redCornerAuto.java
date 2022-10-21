@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.earlyRobotCode;
+package org.firstinspires.ftc.teamcode.steamboatWillie;
 
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -16,19 +18,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.RobotHardware;
-import org.firstinspires.ftc.teamcode.steamboatWillie.AprilTagDetectionPipeline;
 import org.openftc.apriltag.AprilTagDetection;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
 
 
-@Autonomous(name="firstAuto")
+@Autonomous(name="redCornerAuto")
 //@Disabled
 
-public class firstAuto extends LinearOpMode
+public class redCornerAuto extends LinearOpMode
 {
     BNO055IMU imu;
     Orientation angles;
@@ -213,53 +215,9 @@ public class firstAuto extends LinearOpMode
         if(tagOfInterest == null || tagOfInterest.id == LEFT){
             //trajectory 1 dot
 
-            autoStart();
-            sleep(1000);
-
-            // one encoder tick = 0.02426 inches
-            // desired distance in inches / 0.02426 inches = encoder ticks needed
-            encoderDriveForward(-2000, -0.75);
-            sleep(2000);
-
-            betterPivot(45);
-
-            slidePose1 = -4200;
-            slidePose0 = -4200;
-
-            liftSlides(slidePose1, slidePose0);
-            sleep(2000);
-
-            encoderDriveForward(375, 0.5);
-            sleep(2000);
-
-            Claw0.setPosition(.3);
-            Claw1.setPosition(.7);
-            sleep(500);
-
-            encoderDriveForward(-375, -0.5);
-            sleep(2000);
-
-            slidePose1 = -100;
-            slidePose0 = -100;
-
-            liftSlides(slidePose1, slidePose0);
-            sleep(1000);
-
-            betterPivot(-90);
-            sleep(2000);
-
-            encoderDriveForward(900, 0.75);
-            sleep(2000);
         }
         else if(tagOfInterest.id == MIDDLE){
             //trajectory 2 dots
-
-            //autoStart();
-
-            drive(-1,0.5,1900);
-            sleep(1000);
-
-            betterPivot(-135);
 
         }
         else{
@@ -287,12 +245,13 @@ public class firstAuto extends LinearOpMode
         Slide0.setPower(1);
         Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+
     public void autoStart()
     {
         drive(0.5,1,500);
         drive(-0.5,1,100);
-            Claw0.setPosition(.6);
-            Claw1.setPosition(.4);
+        Claw0.setPosition(.6);
+        Claw1.setPosition(.4);
         sleep(500);
         slidePose1 = -200;
         slidePose0 = -200;
@@ -359,40 +318,6 @@ public class firstAuto extends LinearOpMode
 
 
             oldAngleError = angleError;
-
-            /*
-            if(turnpower >= 0) {
-                turnpower +=.1;
-            }
-            else {
-                turnpower -= .1;
-            }
-             */
-
-            /*
-            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            deltaT = (PIDLoopTime.nanoseconds() - OldPIDLoopTime)/1000000000;
-
-            //PID math
-            //rate limit
-            if(Math.abs(ARL - angle) < rate * deltaT) {
-                ARL = angle;
-            } else if ((angle - ARL) > 0) {
-                ARL = ARL + (rate * deltaT);
-            } else {
-                ARL = ARL - (rate * deltaT);
-            }
-
-            angleError = ARL - angles.firstAngle;
-
-
-            turnpower = angleError * Kp;
-
-
-
-            OldPIDLoopTime = PIDLoopTime.nanoseconds();
-             */
-
 
             robot.motorRF.setPower(turnpower);
             robot.motorRB.setPower(turnpower);
@@ -544,5 +469,41 @@ public class firstAuto extends LinearOpMode
         robot.motorRB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorLB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorLF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    }
+
+    /*
+    --junction location key--
+        1   2   3
+        4   5   6
+        7   8   9
+        you stand here -->
+    */
+
+    public void junction_1(){
+        //a
+    }
+    public void junction_2(){
+        //b
+    }
+    public void junction_3(){
+        //x
+    }
+    public void junction_4(){
+        //y
+    }
+    public void junction_5(){
+        //dpad_up
+    }
+    public void junction_6(){
+        //dpad_left
+    }
+    public void junction_7(){
+        //dpad_down
+    }
+    public void junction_8(){
+        //dpad_right
+    }
+    public void junction_9(){
+        //a trigger you decide
     }
 }

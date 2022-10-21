@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.earlyRobotCode;
+package org.firstinspires.ftc.teamcode.steamboatWillie;
 
 
 //import com.acmerobotics.dashboard.FtcDashboard;
@@ -13,10 +13,10 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //import org.firstinspires.ftc.teamcode.RobotHardware;
 
 
-@TeleOp(name="Hello")
-@Disabled
+@TeleOp(name="Hello Willie")
+//@Disabled
 
-public class secretEarlyTankDrive extends LinearOpMode
+public class willieFirstTeleOp extends LinearOpMode
 {
     public DcMotor motorRF = null;
     public DcMotor motorLF = null;
@@ -35,6 +35,9 @@ public class secretEarlyTankDrive extends LinearOpMode
     int slidePosTarget;
 
     public double slidePower = 0;
+
+    int slidePose0 =0;
+    int slidePose1 =0;
 
 
     @Override
@@ -83,25 +86,25 @@ public class secretEarlyTankDrive extends LinearOpMode
         while (opModeIsActive())
         {
             //Code goes here
-            if (gamepad1.dpad_down) {
-                motorRF.setPower(.5 * (gamepad1.right_stick_y + gamepad1.right_stick_x));
-                motorRB.setPower(.5 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x)));
-                motorLB.setPower(.5 * (gamepad1.right_stick_y - gamepad1.right_stick_x));
-                motorLF.setPower(.5 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x)));
+            if (gamepad1.a) {
+                motorRF.setPower(.5 * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+                motorRB.setPower(.5 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x)));
+                motorLB.setPower(.5 * (gamepad1.left_stick_y - gamepad1.left_stick_x));
+                motorLF.setPower(.5 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
 
-            else if (gamepad1.dpad_up) {
-                motorRF.setPower(.1 * (gamepad1.right_stick_y + gamepad1.right_stick_x));
-                motorRB.setPower(.1 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x)));
-                motorLB.setPower(.1 * (gamepad1.right_stick_y - gamepad1.right_stick_x));
-                motorLF.setPower(.1 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x)));
+            else if (gamepad1.y) {
+                motorRF.setPower(.1 * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+                motorRB.setPower(.1 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x)));
+                motorLB.setPower(.1 * (gamepad1.left_stick_y - gamepad1.left_stick_x));
+                motorLF.setPower(.1 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
 
             else {
-                motorRF.setPower(1 * (gamepad1.right_stick_y + gamepad1.right_stick_x));
-                motorRB.setPower(1 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x)));
-                motorLB.setPower(1 * (gamepad1.right_stick_y - gamepad1.right_stick_x));
-                motorLF.setPower(1 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x)));
+                motorRF.setPower(1 * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+                motorRB.setPower(1 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x)));
+                motorLB.setPower(1 * (gamepad1.left_stick_y - gamepad1.left_stick_x));
+                motorLF.setPower(1 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
 
             if (gamepad1.left_bumper) {
@@ -114,7 +117,78 @@ public class secretEarlyTankDrive extends LinearOpMode
             }
 
 
+            if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 > 0){
+                if(gamepad2.dpad_up){
+                    slidePose1 -= 12;
+                    slidePose0 -= 12;
+                }
+            }
 
+            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < -4300){
+                if(gamepad2.dpad_down){
+                    slidePose1 += 12;
+                    slidePose0 += 12;
+                }
+            }
+            else {
+                if(gamepad2.dpad_up){
+                    slidePose1 -= 12;
+                    slidePose0 -= 12;
+                }
+                else if(gamepad2.dpad_down){
+                    slidePose1 += 12;
+                    slidePose0 += 12;
+                }
+            }
+
+
+            if(gamepad2.dpad_left){
+                slidePose1 += 4;
+                slidePose0 -= 4;
+            }
+            else if(gamepad2.dpad_right){
+                slidePose1 -= 4;
+                slidePose0 += 4;
+            }
+
+            /*
+            if(gamepad2.a)
+            {
+                slidePose1 = -4300;
+                slidePose0 = -4300;
+            }
+
+            if(gamepad2.b)
+            {
+                slidePose1 = 0;
+                slidePose0 = 0;
+            }
+
+            if(gamepad2.x)
+            {
+                slidePose1 = -4000;
+                slidePose0 = -3600;
+            }
+
+            if(gamepad2.y)
+            {
+                slidePose1 = -2300;
+                slidePose0 = -2300;
+            }
+            */
+
+
+
+            Slide1.setTargetPosition(slidePose1);
+            Slide1.setPower(1);
+            Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Slide0.setTargetPosition(slidePose0);
+            Slide0.setPower(1);
+            Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+/*
             slidePower = gamepad2.left_stick_y * .5;
 
             if (Slide1.getCurrentPosition() > 0 && slidePower > 0){
@@ -134,6 +208,9 @@ public class secretEarlyTankDrive extends LinearOpMode
                 Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
 
+            */
+
+/*
 
             if (gamepad2.a){
                 slidePosTarget = 1;
@@ -147,34 +224,32 @@ public class secretEarlyTankDrive extends LinearOpMode
             else if (gamepad2.y){
                 slidePosTarget = 4;
             }
-//            else{
-//                slidePosTarget = 0;
-//            }
-
-            //Joseph and Justin testing with button press to move
+            else{
+                slidePosTarget = 0;
+            }
 
             if(slidePosTarget == 1)
             {
                 if(Slide1.getCurrentPosition() > slidePosDown)
                 {
-                    Slide1.setPower(-.5);
-                    Slide0.setPower(-.5);
-                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+                    while (Slide1.getCurrentPosition() > slidePosDown)
+                    {
+                        Slide1.setPower(-.5);
+                        Slide0.setPower(-.5);
+                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    }
                 }
 
-                else if(Slide1.getCurrentPosition() < slidePosDown - 5)
+                if(Slide1.getCurrentPosition() < slidePosDown)
                 {
-                    Slide1.setPower(0.25);
-                    Slide0.setPower(0.25);
-                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-                }
-
-                else {
-                    slidePosTarget = 0;
+                    while (Slide1.getCurrentPosition() < slidePosDown)
+                    {
+                        Slide1.setPower(0.25);
+                        Slide0.setPower(0.25);
+                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    }
                 }
             }
 
@@ -230,38 +305,41 @@ public class secretEarlyTankDrive extends LinearOpMode
 
             if(slidePosTarget == 4)
             {
-                if(Slide1.getCurrentPosition() > slidePosLow - 3)
+                if(Slide1.getCurrentPosition() > slidePosLow)
                 {
-                    Slide1.setPower(-.5);
-                    Slide0.setPower(-.5);
-                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+                    while (Slide1.getCurrentPosition() > slidePosLow)
+                    {
+                        Slide1.setPower(-.5);
+                        Slide0.setPower(-.5);
+                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    }
                 }
 
-                else if(Slide1.getCurrentPosition() < slidePosLow + 3)
+                if(Slide1.getCurrentPosition() < slidePosLow)
                 {
-                    Slide1.setPower(.25);
-                    Slide0.setPower(.25);
-                    Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                    Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-                }
-                else
-                {
-                slidePosTarget = 0;
+                    while (Slide1.getCurrentPosition() < slidePosLow)
+                    {
+                        Slide1.setPower(.25);
+                        Slide0.setPower(.25);
+                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                    }
                 }
             }
+*/
 
+            /*
+             if(gamepad2.dpad_up){
+                 Slide1.setPower(-0.5);
+                 Slide0.setPower(0.5);
+             }
+             if(gamepad2.dpad_down){
+                 Slide1.setPower(0.5);
+                 Slide0.setPower(-0.5);
+             }
 
-            if(gamepad2.dpad_up){
-                Slide1.setPower(0.5);
-                Slide0.setPower(-0.5);
-            }
-            if(gamepad2.dpad_down){
-                Slide1.setPower(-0.5);
-                Slide0.setPower(0.5);
-            }
+             */
 
 
             telemetry.addData("Slide0Encoder",Slide0.getCurrentPosition());

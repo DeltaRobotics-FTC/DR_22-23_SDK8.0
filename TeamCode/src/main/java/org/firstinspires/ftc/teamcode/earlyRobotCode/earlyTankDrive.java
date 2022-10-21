@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="earlyTankDrive")
-//@Disabled
+@Disabled
 
 public class earlyTankDrive extends LinearOpMode
 {

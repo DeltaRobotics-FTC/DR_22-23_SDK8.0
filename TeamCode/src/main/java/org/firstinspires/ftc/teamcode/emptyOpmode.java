@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="emptyOpmode")
-//@Disabled
+@Disabled
 
 public class emptyOpmode extends LinearOpMode
 {
