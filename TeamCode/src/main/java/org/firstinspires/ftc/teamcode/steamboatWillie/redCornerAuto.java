@@ -25,6 +25,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 @Autonomous(name="redCornerAuto")
@@ -40,10 +41,10 @@ public class redCornerAuto extends LinearOpMode
     public DcMotor motorLF = null;
     public DcMotor motorRB = null;
     public DcMotor motorLB = null;
-    public DcMotor Slide0 = null;
-    public DcMotor Slide1 = null;
-    public Servo Claw0 = null;
-    public Servo Claw1 = null;
+    //public DcMotor Slide0 = null;
+    //public DcMotor Slide1 = null;
+    //public Servo Claw0 = null;
+    //public Servo Claw1 = null;
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -70,25 +71,28 @@ public class redCornerAuto extends LinearOpMode
     int slidePose0 =0;
     int slidePose1 =0;
 
+    //for the programmable
+    List<String> junctionList = new ArrayList<String>();
+
     AprilTagDetection tagOfInterest = null;
 
     @Override
     public void runOpMode() throws InterruptedException
     {
-        Slide0 = hardwareMap.dcMotor.get("Slide0");
-        Slide1 = hardwareMap.dcMotor.get("Slide1");
-        Claw0 = hardwareMap.servo.get("Claw0");
-        Claw1 = hardwareMap.servo.get("Claw1");
+        //Slide0 = hardwareMap.dcMotor.get("Slide0");
+        //Slide1 = hardwareMap.dcMotor.get("Slide1");
+        //Claw0 = hardwareMap.servo.get("Claw0");
+        //Claw1 = hardwareMap.servo.get("Claw1");
 
-        Slide0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        Slide0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Slide0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+//
+        //Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//
+        //Slide0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -184,6 +188,38 @@ public class redCornerAuto extends LinearOpMode
 
             telemetry.update();
             sleep(20);
+
+            if(gamepad1.a){
+                junctionList.add("junction_1()");
+            }
+            else if(gamepad1.b) {
+                junctionList.add("junction_3()");
+            }
+            else if(gamepad1.x){
+                junctionList.add("junction_7()");
+            }
+            else if(gamepad1.y){
+                junctionList.add("junction_9()");
+            }
+            else if(gamepad1.dpad_up){
+                junctionList.add("junction_2()");
+            }
+            else if(gamepad1.dpad_right){
+                junctionList.add("junction_6()");
+            }
+            else if(gamepad1.dpad_down){
+                junctionList.add("junction_8()");
+            }
+            else if(gamepad1.dpad_left){
+                junctionList.add("junction_4()");
+            }
+            else if(gamepad1.left_bumper){
+                junctionList.add("junction_5()");
+            }
+            else if(gamepad1.back){
+                junctionList.remove(junctionList.size() - 1);
+
+            }
         }
 
         /*
@@ -214,14 +250,23 @@ public class redCornerAuto extends LinearOpMode
         /* Actually do something useful */
         if(tagOfInterest == null || tagOfInterest.id == LEFT){
             //trajectory 1 dot
-
+            autoStart();
+            programmable();
+            //don't move for parking
         }
         else if(tagOfInterest.id == MIDDLE){
             //trajectory 2 dots
-
+            autoStart();
+            programmable();
+            //parking
+            encoderDriveForward(1400,-1);
         }
         else{
             //trajectory 3 dots
+            autoStart();
+            programmable();
+            //parking
+            encoderDriveForward(2300,-1);
         }
     }
 
@@ -234,44 +279,80 @@ public class redCornerAuto extends LinearOpMode
         telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
         telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
         telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
+        String[] tempArray = new String[junctionList.size()];
+        junctionList.toArray(tempArray);
+        for(int i = 0; i<junctionList.size(); i++){
+            telemetry.addLine("junctions" + tempArray[i]);
+        }
     }
 
     public void liftSlides(int slidePos1, int slidePos0)
     {
-        Slide1.setTargetPosition(slidePos1);
-        Slide1.setPower(1);
-        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slide0.setTargetPosition(slidePos0);
-        Slide0.setPower(1);
-        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //Slide1.setTargetPosition(slidePos1);
+        //Slide1.setPower(1);
+        //Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //Slide0.setTargetPosition(slidePos0);
+        //Slide0.setPower(1);
+        //Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void autoStart()
     {
         drive(0.5,1,500);
         drive(-0.5,1,100);
-        Claw0.setPosition(.6);
-        Claw1.setPosition(.4);
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
         sleep(500);
         slidePose1 = -200;
         slidePose0 = -200;
         liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        // one encoder tick = 0.02426 inches
+        // desired distance in inches / 0.02426 inches = encoder ticks needed
+        encoderDriveForward(-2000, -0.75);
+        sleep(2000);
+
+        betterPivot(45);
+
+        slidePose1 = -4200;
+        slidePose0 = -4200;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(2000);
+
+        encoderDriveForward(375, 0.5);
+        sleep(2000);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(-375, -0.5);
+        sleep(2000);
+
+        slidePose1 = -100;
+        slidePose0 = -100;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        betterPivot(-90);
+        sleep(2000);
+
+        autoSetPositions(0);
+
+        encoderDriveForward(900, 0.75);
+        sleep(2000);
+
     }
 
     public void betterPivot(double angle)
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
-        ElapsedTime PIDLoopTime = new ElapsedTime();
-        double OldPIDLoopTime = 0;
-        double ARL = 0;//angle rate limited
-        double rateTime = 2;//time to make the turn
-        double rate = angle / rateTime;
-        double deltaT = 0;//time it takes to make one loop dt
         double turnpower;
-        double oldAngleError = 0;
         double angleError = 0;
         double Kp = 0.0125;//proportional gain
-        double angleWraped;
         double reset = 0;
         double Ki = 0.0001;
         double Kd = 0.01;
@@ -315,9 +396,6 @@ public class redCornerAuto extends LinearOpMode
                 //reset = reset - (Ki * angleError);
                 turnpower = (angleError * Kp);// + reset + (Kd * (angleError - oldAngleError));
             }
-
-
-            oldAngleError = angleError;
 
             robot.motorRF.setPower(turnpower);
             robot.motorRB.setPower(turnpower);
@@ -451,7 +529,8 @@ public class redCornerAuto extends LinearOpMode
         robot.motorLF.setPower(0);
     }
 
-    void encoderDriveForward (int distance, double power) {
+    void encoderDriveForward (int distance, double power)
+    {
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
@@ -471,39 +550,134 @@ public class redCornerAuto extends LinearOpMode
         robot.motorLF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
+    public void autoSetPositions(int loopOrder)
+    {
+        if(loopOrder == 0){
+            slidePose1 = -2000;
+            slidePose0 = -2000;
+            liftSlides(slidePose1, slidePose0);
+
+        }else if(loopOrder == 1){
+            slidePose1 = -1500;
+            slidePose0 = -1500;
+            liftSlides(slidePose1, slidePose0);
+
+        }else if(loopOrder == 2){
+            slidePose1 = -1000;
+            slidePose0 = -1000;
+            liftSlides(slidePose1, slidePose0);
+
+        }else if(loopOrder == 3){
+            slidePose1 = -500;
+            slidePose0 = -500;
+            liftSlides(slidePose1, slidePose0);
+
+        } else{
+            slidePose1 = -50;
+            slidePose0 = -50;
+            liftSlides(slidePose1, slidePose0);
+        }
+    }
+
+    public void runjuctionFunction(int i)
+    {
+        String[] tempArray = new String[junctionList.size()];
+        junctionList.toArray(tempArray);
+        if(tempArray[i - 1] == "junction_1"){
+            junction_1();
+        } else if(tempArray[i - 1] == "junction_2"){
+            junction_2();
+        } else if(tempArray[i - 1] == "junction_3"){
+            junction_3();
+        } else if(tempArray[i - 1] == "junction_4"){
+            junction_4();
+        } else if(tempArray[i - 1] == "junction_5"){
+            junction_5();
+        } else if(tempArray[i - 1] == "junction_6"){
+            junction_6();
+        } else if(tempArray[i - 1] == "junction_7"){
+            junction_7();
+        } else if(tempArray[i - 1] == "junction_8"){
+            junction_8();
+        } else if(tempArray[i - 1] == "junction_9"){
+            junction_9();
+        }
+    }
+
+    public void programmable()
+    {
+        int iteration = 1;
+        for(;iteration <= junctionList.size(); iteration++) {
+            runjuctionFunction(iteration);
+            autoSetPositions(iteration);
+            encoderDriveForward(400, 1);
+        }
+
+    }
+
     /*
     --junction location key--
         1   2   3
-        4   5   6
+ start^ 4   5   6
         7   8   9
         you stand here -->
     */
+    //TODO adjust all time drives based on robot speed
+    //TODO adjust all turning angles
+    //TODO adjust all slide positions
+
+    // one encoder tick = 0.02426 inches
+    // desired distance in inches / 0.02426 inches = encoder ticks needed
 
     public void junction_1(){
-        //a
+        drive(1,0.5,500);
+        sleep(500);
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+        betterPivot(45);
+        slidePose1 = -500;
+        slidePose0 = -500;
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+        encoderDriveForward(500,1);
+        sleep(500);
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+        encoderDriveForward(500,-1);
+        sleep(500);
+        betterPivot(-45);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
     public void junction_2(){
-        //b
+
     }
     public void junction_3(){
-        //x
+
     }
     public void junction_4(){
-        //y
+
     }
     public void junction_5(){
-        //dpad_up
+
     }
     public void junction_6(){
-        //dpad_left
+
     }
     public void junction_7(){
-        //dpad_down
+
     }
     public void junction_8(){
-        //dpad_right
+
     }
     public void junction_9(){
-        //a trigger you decide
+
     }
 }
