@@ -71,6 +71,8 @@ public class redCornerAuto extends LinearOpMode
     int slidePose0 =0;
     int slidePose1 =0;
 
+    boolean backPressed = false;
+
     //for the programmable
     List<String> junctionList = new ArrayList<String>();
 
@@ -189,36 +191,39 @@ public class redCornerAuto extends LinearOpMode
             telemetry.update();
             sleep(20);
 
-            if(gamepad1.a){
+            if(gamepad1.a && !junctionList.contains("junction_1()")){
                 junctionList.add("junction_1()");
             }
-            else if(gamepad1.b) {
+            else if(gamepad1.b && !junctionList.contains("junction_3()")) {
                 junctionList.add("junction_3()");
             }
-            else if(gamepad1.x){
+            else if(gamepad1.x && !junctionList.contains("junction_7()")){
                 junctionList.add("junction_7()");
             }
-            else if(gamepad1.y){
+            else if(gamepad1.y && !junctionList.contains("junction_9()")){
                 junctionList.add("junction_9()");
             }
-            else if(gamepad1.dpad_up){
+            else if(gamepad1.dpad_up && !junctionList.contains("junction_2()")){
                 junctionList.add("junction_2()");
             }
-            else if(gamepad1.dpad_right){
+            else if(gamepad1.dpad_right && !junctionList.contains("junction_6()")){
                 junctionList.add("junction_6()");
             }
-            else if(gamepad1.dpad_down){
+            else if(gamepad1.dpad_down && !junctionList.contains("junction_8()")){
                 junctionList.add("junction_8()");
             }
-            else if(gamepad1.dpad_left){
+            else if(gamepad1.dpad_left && !junctionList.contains("junction_4()")){
                 junctionList.add("junction_4()");
             }
-            else if(gamepad1.left_bumper){
+            else if(gamepad1.left_bumper && !junctionList.contains("junction_5()")){
                 junctionList.add("junction_5()");
             }
-            else if(gamepad1.back){
+            else if(gamepad1.back && !backPressed){
                 junctionList.remove(junctionList.size() - 1);
-
+                backPressed = true;
+            }
+            else if(!gamepad1.back) {
+                backPressed = false;
             }
         }
 
@@ -583,23 +588,32 @@ public class redCornerAuto extends LinearOpMode
     {
         String[] tempArray = new String[junctionList.size()];
         junctionList.toArray(tempArray);
+
         if(tempArray[i - 1] == "junction_1"){
             junction_1();
-        } else if(tempArray[i - 1] == "junction_2"){
+        }
+        else if(tempArray[i - 1] == "junction_2"){
             junction_2();
-        } else if(tempArray[i - 1] == "junction_3"){
+        }
+        else if(tempArray[i - 1] == "junction_3"){
             junction_3();
-        } else if(tempArray[i - 1] == "junction_4"){
+        }
+        else if(tempArray[i - 1] == "junction_4"){
             junction_4();
-        } else if(tempArray[i - 1] == "junction_5"){
+        }
+        else if(tempArray[i - 1] == "junction_5"){
             junction_5();
-        } else if(tempArray[i - 1] == "junction_6"){
+        }
+        else if(tempArray[i - 1] == "junction_6"){
             junction_6();
-        } else if(tempArray[i - 1] == "junction_7"){
+        }
+        else if(tempArray[i - 1] == "junction_7"){
             junction_7();
-        } else if(tempArray[i - 1] == "junction_8"){
+        }
+        else if(tempArray[i - 1] == "junction_8"){
             junction_8();
-        } else if(tempArray[i - 1] == "junction_9"){
+        }
+        else if(tempArray[i - 1] == "junction_9"){
             junction_9();
         }
     }
@@ -632,26 +646,37 @@ public class redCornerAuto extends LinearOpMode
     public void junction_1(){
         drive(1,0.5,500);
         sleep(500);
+
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
+
         slidePose1 = -3000;
         slidePose0 = -3000;
+
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
+
         encoderDriveForward(1400,-1);
         sleep(3000);
+
         betterPivot(45);
+
         slidePose1 = -500;
         slidePose0 = -500;
+
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
+
         encoderDriveForward(500,1);
         sleep(500);
+
         //Claw0.setPosition(.3);
         //Claw1.setPosition(.7);
         sleep(500);
+
         encoderDriveForward(500,-1);
         sleep(500);
+
         betterPivot(-45);
         encoderDriveForward(1000,1);
         sleep(1500);
