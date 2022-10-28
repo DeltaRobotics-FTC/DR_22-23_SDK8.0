@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //import org.firstinspires.ftc.teamcode.RobotHardware;
 
 
-@TeleOp(name="Hello Willie")
+@TeleOp(name="willieFirstTeleOp")
 //@Disabled
 
 public class willieFirstTeleOp extends LinearOpMode
@@ -24,8 +24,8 @@ public class willieFirstTeleOp extends LinearOpMode
     public DcMotor motorLB = null;
     public DcMotor Slide0 = null;
     public DcMotor Slide1 = null;
-    public Servo Claw0 = null;
-    public Servo Claw1 = null;
+    //public Servo Claw0 = null;
+    //public Servo Claw1 = null;
 
     int slidePosDown = 0;
     int slidePosJunction = -500;
@@ -60,8 +60,8 @@ public class willieFirstTeleOp extends LinearOpMode
         motorLB = hardwareMap.dcMotor.get("motorLB");
         Slide0 = hardwareMap.dcMotor.get("Slide0");
         Slide1 = hardwareMap.dcMotor.get("Slide1");
-        Claw0 = hardwareMap.servo.get("Claw0");
-        Claw1 = hardwareMap.servo.get("Claw1");
+        //Claw0 = hardwareMap.servo.get("Claw0");
+        //Claw1 = hardwareMap.servo.get("Claw1");
 
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -74,6 +74,8 @@ public class willieFirstTeleOp extends LinearOpMode
         motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
         Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
@@ -107,24 +109,24 @@ public class willieFirstTeleOp extends LinearOpMode
                 motorLF.setPower(1 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
 
-            if (gamepad1.left_bumper) {
-                Claw0.setPosition(.6);
-                Claw1.setPosition(.4);
-            }
-            else if (gamepad1.right_bumper){
-                Claw0.setPosition(.3);
-                Claw1.setPosition(.7);
-            }
+            //if (gamepad1.left_bumper) {
+            //    Claw0.setPosition(.6);
+            //    Claw1.setPosition(.4);
+            //}
+            //else if (gamepad1.right_bumper){
+            //    Claw0.setPosition(.3);
+            //    Claw1.setPosition(.7);
+            //}
 
 
-            if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 > 0){
+            if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < 0){
                 if(gamepad2.dpad_up){
                     slidePose1 -= 12;
                     slidePose0 -= 12;
                 }
             }
 
-            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < -4300){
+            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 > 4300){
                 if(gamepad2.dpad_down){
                     slidePose1 += 12;
                     slidePose0 += 12;
@@ -179,24 +181,25 @@ public class willieFirstTeleOp extends LinearOpMode
 
 
 
-            Slide1.setTargetPosition(slidePose1);
-            Slide1.setPower(1);
-            Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Slide0.setTargetPosition(slidePose0);
-            Slide0.setPower(1);
-            Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //Slide1.setTargetPosition(slidePose1);
+            //Slide1.setPower(1);
+            //Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //Slide0.setTargetPosition(slidePose0);
+            //Slide0.setPower(1);
+            //Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
 
-/*
-            slidePower = gamepad2.left_stick_y * .5;
 
-            if (Slide1.getCurrentPosition() > 0 && slidePower > 0){
+            slidePower = gamepad2.left_stick_y ;
+
+
+            if (Slide1.getCurrentPosition() < 0 && slidePower < 0){
                 Slide1.setPower(0);
                 Slide0.setPower(0);
             }
 
-            else if (Slide1.getCurrentPosition() < -4300 && slidePower < 0){
+            else if (Slide1.getCurrentPosition() > 800 && slidePower > 0){
                 Slide1.setPower(0);
                 Slide0.setPower(0);
             }
@@ -208,7 +211,9 @@ public class willieFirstTeleOp extends LinearOpMode
                 Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
 
-            */
+
+
+
 
 /*
 

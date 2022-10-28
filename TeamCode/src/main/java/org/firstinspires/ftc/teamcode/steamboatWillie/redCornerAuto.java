@@ -41,8 +41,8 @@ public class redCornerAuto extends LinearOpMode
     public DcMotor motorLF = null;
     public DcMotor motorRB = null;
     public DcMotor motorLB = null;
-    //public DcMotor Slide0 = null;
-    //public DcMotor Slide1 = null;
+    public DcMotor Slide0 = null;
+    public DcMotor Slide1 = null;
     //public Servo Claw0 = null;
     //public Servo Claw1 = null;
 
@@ -81,20 +81,20 @@ public class redCornerAuto extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException
     {
-        //Slide0 = hardwareMap.dcMotor.get("Slide0");
-        //Slide1 = hardwareMap.dcMotor.get("Slide1");
+        Slide0 = hardwareMap.dcMotor.get("Slide0");
+        Slide1 = hardwareMap.dcMotor.get("Slide1");
         //Claw0 = hardwareMap.servo.get("Claw0");
         //Claw1 = hardwareMap.servo.get("Claw1");
 
-        //Slide0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //Slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-//
-        //Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        //Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//
-        //Slide0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
+        Slide0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        Slide0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -293,12 +293,12 @@ public class redCornerAuto extends LinearOpMode
 
     public void liftSlides(int slidePos1, int slidePos0)
     {
-        //Slide1.setTargetPosition(slidePos1);
-        //Slide1.setPower(1);
-        //Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //Slide0.setTargetPosition(slidePos0);
-        //Slide0.setPower(1);
-        //Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slide1.setTargetPosition(slidePos1);
+        Slide1.setPower(1);
+        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Slide0.setTargetPosition(slidePos0);
+        Slide0.setPower(1);
+        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void autoStart()
@@ -682,27 +682,373 @@ public class redCornerAuto extends LinearOpMode
         sleep(1500);
     }
     public void junction_2(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(135);
+
+        //slidePose1 = ; set this to the highest junction
+        //slidePose0 = ; set this to the highest junction
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        slidePose1 = -100;
+        slidePose0 = -100;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        betterPivot(-135);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
     public void junction_3(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(2800,-1);
+        sleep(6000);
+
+        betterPivot(135);
+
+        slidePose1 = -500;
+        slidePose0 = -500;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        betterPivot(-135);
+        encoderDriveForward(2400,1);
+        sleep(3000);
     }
     public void junction_4(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-45);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        slidePose1 = -100;
+        slidePose0 = -100;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        betterPivot(45);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
     public void junction_5(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-135);
+
+        slidePose1 = -4200;
+        slidePose0 = -4200;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        slidePose1 = -100;
+        slidePose0 = -100;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        betterPivot(135);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
     public void junction_6(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(2800,-1);
+        sleep(6000);
+
+        betterPivot(-135);
+
+        //slidePose1 = ; put tall junction lengths here
+        //slidePose0 = ; put tall junction lengths here
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        slidePose1 = -100;
+        slidePose0 = -100;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        betterPivot(135);
+        encoderDriveForward(2400,1);
+        sleep(3000);
     }
     public void junction_7(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-90);
+        sleep(500);
+
+        encoderDriveForward(1400,1);
+        sleep(3000);
+
+        betterPivot(-45);
+
+        slidePose1 = -500;
+        slidePose0 = -500;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        betterPivot(45);
+        sleep(500);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-90);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
     public void junction_8(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-90);
+        sleep(500);
+
+        encoderDriveForward(1400,1);
+        sleep(3000);
+
+        betterPivot(45);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        slidePose1 = -100;
+        slidePose0 = -100;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        betterPivot(-45);
+        sleep(500);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-90);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
     public void junction_9(){
+        drive(1,0.5,500);
+        sleep(500);
 
+        //Claw0.setPosition(.6);
+        //Claw1.setPosition(.4);
+
+        slidePose1 = -3000;
+        slidePose0 = -3000;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(2800,-1);
+        sleep(6000);
+
+        betterPivot(-90);
+        sleep(500);
+
+        encoderDriveForward(1400,1);
+        sleep(3000);
+
+        betterPivot(45);
+
+        slidePose1 = -500;
+        slidePose0 = -500;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        //Claw0.setPosition(.3);
+        //Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        betterPivot(-45);
+        sleep(500);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-90);
+        encoderDriveForward(2400,1);
+        sleep(3000);
     }
 }
