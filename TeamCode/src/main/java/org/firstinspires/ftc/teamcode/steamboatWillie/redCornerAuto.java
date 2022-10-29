@@ -78,6 +78,8 @@ public class redCornerAuto extends LinearOpMode
 
     AprilTagDetection tagOfInterest = null;
 
+    RobotHardware robot = new RobotHardware(hardwareMap);
+
     @Override
     public void runOpMode() throws InterruptedException
     {
@@ -95,6 +97,10 @@ public class redCornerAuto extends LinearOpMode
         Slide0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        robot.motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
+        robot.motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
@@ -308,8 +314,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
         sleep(500);
-        slidePose1 = -200;
-        slidePose0 = -200;
+        slidePose1 = 50;
+        slidePose0 = 50;
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
@@ -320,8 +326,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(45);
 
-        slidePose1 = -4200;
-        slidePose0 = -4200;
+        slidePose1 = 533;
+        slidePose0 = 533;
 
         liftSlides(slidePose1, slidePose0);
         sleep(2000);
@@ -336,8 +342,8 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(-375, -0.5);
         sleep(2000);
 
-        slidePose1 = -100;
-        slidePose0 = -100;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -558,28 +564,28 @@ public class redCornerAuto extends LinearOpMode
     public void autoSetPositions(int loopOrder)
     {
         if(loopOrder == 0){
-            slidePose1 = -2000;
-            slidePose0 = -2000;
+            slidePose1 = 250;
+            slidePose0 = 250;
             liftSlides(slidePose1, slidePose0);
 
         }else if(loopOrder == 1){
-            slidePose1 = -1500;
-            slidePose0 = -1500;
+            slidePose1 = 200;
+            slidePose0 = 200;
             liftSlides(slidePose1, slidePose0);
 
         }else if(loopOrder == 2){
-            slidePose1 = -1000;
-            slidePose0 = -1000;
+            slidePose1 = 150;
+            slidePose0 = 150;
             liftSlides(slidePose1, slidePose0);
 
         }else if(loopOrder == 3){
-            slidePose1 = -500;
-            slidePose0 = -500;
+            slidePose1 = 100;
+            slidePose0 = 100;
             liftSlides(slidePose1, slidePose0);
 
         } else{
-            slidePose1 = -50;
-            slidePose0 = -50;
+            slidePose1 = 50;
+            slidePose0 = 50;
             liftSlides(slidePose1, slidePose0);
         }
     }
@@ -650,8 +656,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -661,8 +667,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(45);
 
-        slidePose1 = -500;
-        slidePose0 = -500;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -688,8 +694,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -699,8 +705,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(135);
 
-        //slidePose1 = ; set this to the highest junction
-        //slidePose0 = ; set this to the highest junction
+        slidePose1 = 800;
+        slidePose0 = 800;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -715,8 +721,8 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(500,-1);
         sleep(500);
 
-        slidePose1 = -100;
-        slidePose0 = -100;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -732,8 +738,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -743,8 +749,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(135);
 
-        slidePose1 = -500;
-        slidePose0 = -500;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -770,8 +776,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -781,8 +787,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(-45);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 266;
+        slidePose0 = 266;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -797,8 +803,8 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(500,-1);
         sleep(500);
 
-        slidePose1 = -100;
-        slidePose0 = -100;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -814,8 +820,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -825,8 +831,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(-135);
 
-        slidePose1 = -4200;
-        slidePose0 = -4200;
+        slidePose1 = 533;
+        slidePose0 = 533;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -841,8 +847,8 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(500,-1);
         sleep(500);
 
-        slidePose1 = -100;
-        slidePose0 = -100;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -858,8 +864,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -869,8 +875,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(-135);
 
-        //slidePose1 = ; put tall junction lengths here
-        //slidePose0 = ; put tall junction lengths here
+        slidePose1 = 800;
+        slidePose0 = 800;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -885,8 +891,8 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(500,-1);
         sleep(500);
 
-        slidePose1 = -100;
-        slidePose0 = -100;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -902,8 +908,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -919,8 +925,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(-45);
 
-        slidePose1 = -500;
-        slidePose0 = -500;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -952,8 +958,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -969,8 +975,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(45);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 266;
+        slidePose0 = 266;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -985,8 +991,8 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(500,-1);
         sleep(500);
 
-        slidePose1 = -100;
-        slidePose0 = -100;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -1008,8 +1014,8 @@ public class redCornerAuto extends LinearOpMode
         //Claw0.setPosition(.6);
         //Claw1.setPosition(.4);
 
-        slidePose1 = -3000;
-        slidePose0 = -3000;
+        slidePose1 = 400;
+        slidePose0 = 400;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -1025,8 +1031,8 @@ public class redCornerAuto extends LinearOpMode
 
         betterPivot(45);
 
-        slidePose1 = -500;
-        slidePose0 = -500;
+        slidePose1 = 50;
+        slidePose0 = 50;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.earlyRobotCode;
         import com.qualcomm.hardware.bosch.BNO055IMU;
         import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
         import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+        import com.qualcomm.robotcore.eventloop.opmode.Disabled;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
         import com.qualcomm.robotcore.hardware.DcMotor;
         import com.qualcomm.robotcore.hardware.Servo;
@@ -24,7 +25,7 @@ package org.firstinspires.ftc.teamcode.earlyRobotCode;
 
 
 @Autonomous(name="earlyAutoTest")
-//@Disabled
+@Disabled
 
 public class earlyAutoTest extends LinearOpMode
 {

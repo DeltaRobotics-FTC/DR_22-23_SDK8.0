@@ -28,10 +28,10 @@ public class willieFirstTeleOp extends LinearOpMode
     //public Servo Claw1 = null;
 
     int slidePosDown = 0;
-    int slidePosJunction = -500;
-    int slidePosLow = -3000;
-    int slidePosMid = -4200;
-    int slidePosTall;
+    int slidePosJunction = 50;
+    int slidePosLow = 266;
+    int slidePosMid = 533;
+    int slidePosTall = 800;
     int slidePosTarget;
 
     public double slidePower = 0;
@@ -118,21 +118,22 @@ public class willieFirstTeleOp extends LinearOpMode
             //    Claw1.setPosition(.7);
             //}
 
-
-            if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < 0){
+/*
+            if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 > 0){
                 if(gamepad2.dpad_up){
                     slidePose1 -= 12;
                     slidePose0 -= 12;
                 }
             }
 
-            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 > 4300){
+            else if ((Slide1.getCurrentPosition()+Slide0.getCurrentPosition())/2 < 4300){
                 if(gamepad2.dpad_down){
                     slidePose1 += 12;
                     slidePose0 += 12;
                 }
             }
-            else {
+            */
+            //else {
                 if(gamepad2.dpad_up){
                     slidePose1 -= 12;
                     slidePose0 -= 12;
@@ -141,16 +142,16 @@ public class willieFirstTeleOp extends LinearOpMode
                     slidePose1 += 12;
                     slidePose0 += 12;
                 }
-            }
+            //}
 
 
             if(gamepad2.dpad_left){
-                slidePose1 += 4;
-                slidePose0 -= 4;
+                slidePose1 += 1;
+                slidePose0 -= 1;
             }
             else if(gamepad2.dpad_right){
-                slidePose1 -= 4;
-                slidePose0 += 4;
+                slidePose1 -= 1;
+                slidePose0 += 1;
             }
 
             /*
@@ -181,16 +182,16 @@ public class willieFirstTeleOp extends LinearOpMode
 
 
 
-            //Slide1.setTargetPosition(slidePose1);
-            //Slide1.setPower(1);
-            //Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            //Slide0.setTargetPosition(slidePose0);
-            //Slide0.setPower(1);
-            //Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Slide1.setTargetPosition(slidePose1);
+            Slide1.setPower(1);
+            Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            Slide0.setTargetPosition(slidePose0);
+            Slide0.setPower(1);
+            Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
 
-
+/*
             slidePower = gamepad2.left_stick_y ;
 
 
@@ -209,14 +210,14 @@ public class willieFirstTeleOp extends LinearOpMode
                 Slide0.setPower(slidePower);
                 Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                 Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
+           }
+
 
 
 
 
 
 /*
-
             if (gamepad2.a){
                 slidePosTarget = 1;
             }
@@ -228,6 +229,9 @@ public class willieFirstTeleOp extends LinearOpMode
             }
             else if (gamepad2.y){
                 slidePosTarget = 4;
+            }
+            else if (gamepad2.right_bumper){
+                slidePosTarget = 5;
             }
             else{
                 slidePosTarget = 0;
