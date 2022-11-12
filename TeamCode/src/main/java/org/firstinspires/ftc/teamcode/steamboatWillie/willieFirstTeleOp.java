@@ -27,7 +27,7 @@ public class willieFirstTeleOp extends LinearOpMode
     //public Servo Claw0 = null;
     //public Servo Claw1 = null;
 
-    int slidePosDown = 0;
+    int slidePosDown = 15;
     int slidePosJunction = 50;
     int slidePosLow = 266;
     int slidePosMid = 533;
@@ -135,24 +135,24 @@ public class willieFirstTeleOp extends LinearOpMode
             */
             //else {
                 if(gamepad2.dpad_up){
-                    slidePose1 -= 12;
-                    slidePose0 -= 12;
+                    slidePose1 += 5;
+                    slidePose0 += 5;
                 }
                 else if(gamepad2.dpad_down){
-                    slidePose1 += 12;
-                    slidePose0 += 12;
+                    slidePose1 -= 5;
+                    slidePose0 -= 5;
                 }
             //}
 
 
-            if(gamepad2.dpad_left){
-                slidePose1 += 1;
-                slidePose0 -= 1;
-            }
-            else if(gamepad2.dpad_right){
-                slidePose1 -= 1;
-                slidePose0 += 1;
-            }
+            //if(gamepad2.dpad_left){
+            //    slidePose1 += 1;
+            //    slidePose0 -= 1;
+            //}
+            //else if(gamepad2.dpad_right){
+            //    slidePose1 -= 1;
+            //    slidePose0 += 1;
+            //}
 
             /*
             if(gamepad2.a)
@@ -182,12 +182,7 @@ public class willieFirstTeleOp extends LinearOpMode
 
 
 
-            Slide1.setTargetPosition(slidePose1);
-            Slide1.setPower(1);
-            Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Slide0.setTargetPosition(slidePose0);
-            Slide0.setPower(1);
-            Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
 
 
 
@@ -212,26 +207,26 @@ public class willieFirstTeleOp extends LinearOpMode
                 Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
            }
 
+*/
 
 
 
 
 
-/*
             if (gamepad2.a){
-                slidePosTarget = 1;
+                slidePosTarget = 1; // down
             }
             else if (gamepad2.b){
-                slidePosTarget = 2;
+                slidePosTarget = 2; // mid
             }
             else if (gamepad2.x){
-                slidePosTarget = 3;
+                slidePosTarget = 5; // tall
             }
             else if (gamepad2.y){
-                slidePosTarget = 4;
+                slidePosTarget = 4; // low
             }
             else if (gamepad2.right_bumper){
-                slidePosTarget = 5;
+                slidePosTarget = 3; // ground junction
             }
             else{
                 slidePosTarget = 0;
@@ -243,10 +238,12 @@ public class willieFirstTeleOp extends LinearOpMode
                 {
                     while (Slide1.getCurrentPosition() > slidePosDown)
                     {
-                        Slide1.setPower(-.5);
-                        Slide0.setPower(-.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosDown);
+                        Slide0.setTargetPosition(slidePosDown);
+                        Slide1.setPower(-0.15);
+                        Slide0.setPower(-0.15);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
 
@@ -254,24 +251,30 @@ public class willieFirstTeleOp extends LinearOpMode
                 {
                     while (Slide1.getCurrentPosition() < slidePosDown)
                     {
-                        Slide1.setPower(0.25);
-                        Slide0.setPower(0.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosDown);
+                        Slide0.setTargetPosition(slidePosDown);
+                        Slide1.setPower(.5);
+                        Slide0.setPower(.5);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
+                slidePose1 = slidePosDown;
+                slidePose0 = slidePosDown;
             }
 
-            if(slidePosTarget == 2)
+            else if(slidePosTarget == 2)
             {
                 if(Slide1.getCurrentPosition() > slidePosMid)
                 {
                     while (Slide1.getCurrentPosition() > slidePosMid)
                     {
-                        Slide1.setPower(-.5);
-                        Slide0.setPower(-.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosMid);
+                        Slide0.setTargetPosition(slidePosMid);
+                        Slide1.setPower(-0.25);
+                        Slide0.setPower(-0.25);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
 
@@ -279,24 +282,30 @@ public class willieFirstTeleOp extends LinearOpMode
                 {
                     while (Slide1.getCurrentPosition() < slidePosMid)
                     {
-                        Slide1.setPower(.25);
-                        Slide0.setPower(.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosMid);
+                        Slide0.setTargetPosition(slidePosMid);
+                        Slide1.setPower(.5);
+                        Slide0.setPower(.5);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
+                slidePose1 = slidePosMid;
+                slidePose0 = slidePosMid;
             }
 
-            if(slidePosTarget == 3)
+            else if(slidePosTarget == 3)
             {
                 if(Slide1.getCurrentPosition() > slidePosJunction)
                 {
                     while (Slide1.getCurrentPosition() > slidePosJunction)
                     {
-                        Slide1.setPower(-.5);
-                        Slide0.setPower(-.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosJunction);
+                        Slide0.setTargetPosition(slidePosJunction);
+                        Slide1.setPower(-0.25);
+                        Slide0.setPower(-0.25);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
 
@@ -304,24 +313,30 @@ public class willieFirstTeleOp extends LinearOpMode
                 {
                     while (Slide1.getCurrentPosition() < slidePosJunction)
                     {
-                        Slide1.setPower(.25);
-                        Slide0.setPower(.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosJunction);
+                        Slide0.setTargetPosition(slidePosJunction);
+                        Slide1.setPower(.5);
+                        Slide0.setPower(.5);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
+                slidePose1 = slidePosJunction;
+                slidePose0 = slidePosJunction;
             }
 
-            if(slidePosTarget == 4)
+            else if(slidePosTarget == 4)
             {
                 if(Slide1.getCurrentPosition() > slidePosLow)
                 {
                     while (Slide1.getCurrentPosition() > slidePosLow)
                     {
-                        Slide1.setPower(-.5);
-                        Slide0.setPower(-.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosLow);
+                        Slide0.setTargetPosition(slidePosLow);
+                        Slide1.setPower(-0.25);
+                        Slide0.setPower(-0.25);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
 
@@ -329,14 +344,57 @@ public class willieFirstTeleOp extends LinearOpMode
                 {
                     while (Slide1.getCurrentPosition() < slidePosLow)
                     {
-                        Slide1.setPower(.25);
-                        Slide0.setPower(.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-                        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                        Slide1.setTargetPosition(slidePosLow);
+                        Slide0.setTargetPosition(slidePosLow);
+                        Slide1.setPower(.5);
+                        Slide0.setPower(.5);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     }
                 }
+                slidePose1 = slidePosLow;
+                slidePose0 = slidePosLow;
             }
-*/
+
+            else if(slidePosTarget == 5)
+            {
+                if(Slide1.getCurrentPosition() > slidePosTall)
+                {
+                    while (Slide1.getCurrentPosition() > slidePosTall)
+                    {
+                        Slide1.setTargetPosition(slidePosTall);
+                        Slide0.setTargetPosition(slidePosTall);
+                        Slide1.setPower(-0.25);
+                        Slide0.setPower(-0.25);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    }
+                }
+
+                if(Slide1.getCurrentPosition() < slidePosTall)
+                {
+                    while (Slide1.getCurrentPosition() < slidePosTall)
+                    {
+                        Slide1.setTargetPosition(slidePosTall);
+                        Slide0.setTargetPosition(slidePosTall);
+                        Slide1.setPower(.5);
+                        Slide0.setPower(.5);
+                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    }
+                }
+                slidePose1 = slidePosTall;
+                slidePose0 = slidePosTall;
+            }
+            else {
+                Slide1.setTargetPosition(slidePose1);
+                Slide1.setPower(0.5);
+                Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                Slide0.setTargetPosition(slidePose0);
+                Slide0.setPower(0.5);
+                Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+
 
             /*
              if(gamepad2.dpad_up){

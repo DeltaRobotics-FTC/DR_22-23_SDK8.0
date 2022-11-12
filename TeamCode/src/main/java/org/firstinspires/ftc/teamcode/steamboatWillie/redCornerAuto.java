@@ -98,8 +98,8 @@ public class redCornerAuto extends LinearOpMode
         Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        robot.motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
-        robot.motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -408,10 +408,10 @@ public class redCornerAuto extends LinearOpMode
                 turnpower = (angleError * Kp);// + reset + (Kd * (angleError - oldAngleError));
             }
 
-            robot.motorRF.setPower(turnpower);
-            robot.motorRB.setPower(turnpower);
-            robot.motorLB.setPower(-turnpower);
-            robot.motorLF.setPower(-turnpower);
+            motorRF.setPower(turnpower);
+            motorRB.setPower(turnpower);
+            motorLB.setPower(-turnpower);
+            motorLF.setPower(-turnpower);
 
             telemetry.addData("Left", I);
             telemetry.addData("current angle" , angles.firstAngle);
@@ -442,10 +442,10 @@ public class redCornerAuto extends LinearOpMode
 
             if (J == 10)
             {
-                robot.motorRF.setPower(0);
-                robot.motorRB.setPower(0);
-                robot.motorLB.setPower(0);
-                robot.motorLF.setPower(0);
+                motorRF.setPower(0);
+                motorRB.setPower(0);
+                motorLB.setPower(0);
+                motorLF.setPower(0);
 
                 I = 1.5;
 
@@ -490,15 +490,15 @@ public class redCornerAuto extends LinearOpMode
 
             turnPower = ((angle - angles.firstAngle) / angle) + .2;
 
-            robot.motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
-            robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
-            robot.motorLB.setPower(speed * ((PowerY - PowerX) - (turnPower)));
-            robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (turnPower));
+            motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
+            motorLB.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            motorLF.setPower(speed * ((PowerX + PowerY)) - (turnPower));
 
-            telemetry.addData("motorRF Power", robot.motorRF.getPower());
-            telemetry.addData("motorRB Power", robot.motorRB.getPower());
-            telemetry.addData("motorLB Power", robot.motorLB.getPower());
-            telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.addData("motorRF Power", motorRF.getPower());
+            telemetry.addData("motorRB Power", motorRB.getPower());
+            telemetry.addData("motorLB Power", motorLB.getPower());
+            telemetry.addData("motorLF Power", motorLF.getPower());
             telemetry.update();
         }
 
@@ -514,15 +514,15 @@ public class redCornerAuto extends LinearOpMode
 
         while ((driveTimeVar + time) > driveTime.milliseconds())
         {
-            robot.motorRF.setPower(speed * Power);
-            robot.motorRB.setPower(speed * Power);
-            robot.motorLB.setPower(speed * Power);
-            robot.motorLF.setPower(speed * Power);
+            motorRF.setPower(speed * Power);
+            motorRB.setPower(speed * Power);
+            motorLB.setPower(speed * Power);
+            motorLF.setPower(speed * Power);
 
-            telemetry.addData("motorRF Power", robot.motorRF.getPower());
-            telemetry.addData("motorRB Power", robot.motorRB.getPower());
-            telemetry.addData("motorLB Power", robot.motorLB.getPower());
-            telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.addData("motorRF Power", motorRF.getPower());
+            telemetry.addData("motorRB Power", motorRB.getPower());
+            telemetry.addData("motorLB Power", motorLB.getPower());
+            telemetry.addData("motorLF Power", motorLF.getPower());
             telemetry.addData("time", driveTime.milliseconds());
             telemetry.update();
         }
@@ -534,10 +534,10 @@ public class redCornerAuto extends LinearOpMode
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
 
-        robot.motorRF.setPower(0);
-        robot.motorRB.setPower(0);
-        robot.motorLB.setPower(0);
-        robot.motorLF.setPower(0);
+        motorRF.setPower(0);
+        motorRB.setPower(0);
+        motorLB.setPower(0);
+        motorLF.setPower(0);
     }
 
     void encoderDriveForward (int distance, double power)
@@ -545,20 +545,20 @@ public class redCornerAuto extends LinearOpMode
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
-        robot.motorRF.setTargetPosition(distance + robot.motorRF.getCurrentPosition());
-        robot.motorRB.setTargetPosition(distance + robot.motorRB.getCurrentPosition());
-        robot.motorLF.setTargetPosition(distance + robot.motorLF.getCurrentPosition());
-        robot.motorLB.setTargetPosition(distance + robot.motorLB.getCurrentPosition());
+        motorRF.setTargetPosition(distance + motorRF.getCurrentPosition());
+        motorRB.setTargetPosition(distance + motorRB.getCurrentPosition());
+        motorLF.setTargetPosition(distance + motorLF.getCurrentPosition());
+        motorLB.setTargetPosition(distance + motorLB.getCurrentPosition());
 
-        robot.motorRF.setPower(power);
-        robot.motorRB.setPower(power);
-        robot.motorLB.setPower(power);
-        robot.motorLF.setPower(power);
+        motorRF.setPower(power);
+        motorRB.setPower(power);
+        motorLB.setPower(power);
+        motorLF.setPower(power);
 
-        robot.motorRF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorRB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorLB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorLF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorRB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorLF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void autoSetPositions(int loopOrder)
