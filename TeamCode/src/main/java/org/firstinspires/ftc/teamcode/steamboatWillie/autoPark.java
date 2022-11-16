@@ -33,7 +33,7 @@ import java.util.List;
 
 public class autoPark extends LinearOpMode {
 
-    RobotHardware robot = new RobotHardware(hardwareMap);
+    //RobotHardware robot = new RobotHardware(hardwareMap);
 
     BNO055IMU imu;
     Orientation angles;
@@ -43,10 +43,10 @@ public class autoPark extends LinearOpMode {
     public DcMotor motorLF = null;
     public DcMotor motorRB = null;
     public DcMotor motorLB = null;
-    public DcMotor Slide0 = null;
-    public DcMotor Slide1 = null;
-    //public Servo Claw0 = null;
-    //public Servo Claw1 = null;
+    //public DcMotor Slide0 = null;
+    //public DcMotor Slide1 = null;
+    public Servo Claw0 = null;
+    public Servo Claw1 = null;
 
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
@@ -102,28 +102,30 @@ public class autoPark extends LinearOpMode {
         motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLB.setDirection(DcMotorSimple.Direction.REVERSE);
         motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-        Slide0 = hardwareMap.dcMotor.get("Slide0");
-        Slide1 = hardwareMap.dcMotor.get("Slide1");
-        //Claw0 = hardwareMap.servo.get("Claw0");
-        //Claw1 = hardwareMap.servo.get("Claw1");
+        //Slide0 = hardwareMap.dcMotor.get("Slide0");
+        //Slide1 = hardwareMap.dcMotor.get("Slide1");
+        Claw0 = hardwareMap.servo.get("Claw0");
+        Claw1 = hardwareMap.servo.get("Claw1");
 
-        Slide0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        Slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Slide0.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //Slide1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Slide0.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //Slide1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        Slide0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
+        //Slide0.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Slide1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Slide0.setDirection(DcMotorSimple.Direction.REVERSE);
 
         //robot.motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
         //robot.motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        Claw0.setPosition(.5);
+        Claw1.setPosition(.5);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -230,14 +232,16 @@ public class autoPark extends LinearOpMode {
         if (tagOfInterest == null || tagOfInterest.id == LEFT) {
             //trajectory 1 dot
             parkStart();
-            encoderDriveForward(1000,1);
+            encoderDriveForward(-1050,-.5);
+            sleep(2000);
         } else if (tagOfInterest.id == MIDDLE) {
             //trajectory 2 dots
             parkStart();
         } else {
             //trajectory 3 dots
             parkStart();
-            encoderDriveForward(1000,-1);
+            encoderDriveForward(800,.5);
+            sleep(2000);
         }
     }
 
@@ -257,12 +261,12 @@ public class autoPark extends LinearOpMode {
     }
 
     public void liftSlides(int slidePos1, int slidePos0) {
-        Slide1.setTargetPosition(slidePos1);
-        Slide1.setPower(1);
-        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        Slide0.setTargetPosition(slidePos0);
-        Slide0.setPower(1);
-        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //Slide1.setTargetPosition(slidePos1);
+        //Slide1.setPower(1);
+        //Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //Slide0.setTargetPosition(slidePos0);
+        //Slide0.setPower(1);
+        //Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     public void betterPivot(double angle) {
@@ -280,6 +284,11 @@ public class autoPark extends LinearOpMode {
 
         double I = 0;
         int J = 0;
+
+        motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         while (angle > 180) {
@@ -452,19 +461,19 @@ public class autoPark extends LinearOpMode {
     }
 
     public void parkStart() {
-        drive(0.5, 1, 500);
-        drive(-0.5, 1, 100);
-        //Claw0.setPosition(.6);
-        //Claw1.setPosition(.4);
-        sleep(500);
-        //slidePose1 = 10;
-        //slidePose0 = 10;
-        //liftSlides(slidePose1, slidePose0);
-        sleep(1000);
+        //drive(0.5, 1, 500);
+        //drive(-0.5, 1, 100);
+        ////Claw0.setPosition(.5);
+        ////Claw1.setPosition(.5);
+        //sleep(500);
+        ////slidePose1 = 40;
+        ////slidePose0 = 40;
+        ////liftSlides(slidePose1, slidePose0);
+        //sleep(1000);
 
         // one encoder tick = 0.02426 inches
         // desired distance in inches / 0.02426 inches = encoder ticks needed
-        encoderDriveForward(-2000, -0.75);
+        encoderDriveForward(-2075, -0.5);
         sleep(2000);
 
         betterPivot(90);
