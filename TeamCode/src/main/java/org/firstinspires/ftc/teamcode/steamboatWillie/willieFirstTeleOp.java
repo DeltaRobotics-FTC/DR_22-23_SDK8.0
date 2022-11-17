@@ -146,6 +146,7 @@ public class willieFirstTeleOp extends LinearOpMode
                 }
             }
 
+
             else {
                 if (gamepad1.left_stick_button) {
                     motorRF.setPower(1 * (gamepad1.left_stick_y + gamepad1.left_stick_x * .1));
