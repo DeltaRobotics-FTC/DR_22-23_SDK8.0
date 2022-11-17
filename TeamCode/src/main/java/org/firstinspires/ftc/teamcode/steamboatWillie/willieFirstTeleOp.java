@@ -39,6 +39,8 @@ public class willieFirstTeleOp extends LinearOpMode
     int slidePose0 =0;
     int slidePose1 =0;
 
+    int setJoysticks = 0;
+
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -88,6 +90,7 @@ public class willieFirstTeleOp extends LinearOpMode
         while (opModeIsActive())
         {
             //Code goes here
+            /*
             if (gamepad1.a) {
                 motorRF.setPower(.5 * (gamepad1.left_stick_y + gamepad1.left_stick_x));
                 motorRB.setPower(.5 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x)));
@@ -101,12 +104,60 @@ public class willieFirstTeleOp extends LinearOpMode
                 motorLB.setPower(.1 * (gamepad1.left_stick_y - gamepad1.left_stick_x));
                 motorLF.setPower(.1 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x)));
             }
+            */
+            if (gamepad1.a)
+            {
+                setJoysticks = 1;
+            }
+            else if (gamepad1.b)
+            {
+                setJoysticks = 2;
+            }
+            else if (gamepad1.x)
+            {
+                setJoysticks = 3;
+            }
+
+            if (setJoysticks == 1) {
+                if (gamepad1.left_stick_button) {
+                    motorRF.setPower(1 * (gamepad1.right_stick_y + gamepad1.left_stick_x * .1));
+                    motorRB.setPower(1 * (-(gamepad1.right_stick_y + gamepad1.left_stick_x * .1)));
+                    motorLB.setPower(1 * (gamepad1.right_stick_y - gamepad1.left_stick_x * .1));
+                    motorLF.setPower(1 * (-(gamepad1.right_stick_y - gamepad1.left_stick_x * .1)));
+                } else {
+                    motorRF.setPower(.75 * (gamepad1.right_stick_y + gamepad1.left_stick_x * .5));
+                    motorRB.setPower(.75 * (-(gamepad1.right_stick_y + gamepad1.left_stick_x * .5)));
+                    motorLB.setPower(.75 * (gamepad1.right_stick_y - gamepad1.left_stick_x * .5));
+                    motorLF.setPower(.75 * (-(gamepad1.right_stick_y - gamepad1.left_stick_x * .5)));
+                }
+            }
+
+            else if (setJoysticks == 2) {
+                if (gamepad1.right_stick_button) {
+                    motorRF.setPower(1 * (gamepad1.right_stick_y + gamepad1.right_stick_x * .1));
+                    motorRB.setPower(1 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x * .1)));
+                    motorLB.setPower(1 * (gamepad1.right_stick_y - gamepad1.right_stick_x * .1));
+                    motorLF.setPower(1 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x * .1)));
+                } else {
+                    motorRF.setPower(.75 * (gamepad1.right_stick_y + gamepad1.right_stick_x * .5));
+                    motorRB.setPower(.75 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x * .5)));
+                    motorLB.setPower(.75 * (gamepad1.right_stick_y - gamepad1.right_stick_x * .5));
+                    motorLF.setPower(.75 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x * .5)));
+                }
+            }
 
             else {
-                motorRF.setPower(.75 * (gamepad1.right_stick_y + gamepad1.right_stick_x * .5));
-                motorRB.setPower(.75 * (-(gamepad1.right_stick_y + gamepad1.right_stick_x * .5)));
-                motorLB.setPower(.75 * (gamepad1.right_stick_y - gamepad1.right_stick_x * .5));
-                motorLF.setPower(.75 * (-(gamepad1.right_stick_y - gamepad1.right_stick_x * .5)));
+                if (gamepad1.left_stick_button) {
+                    motorRF.setPower(1 * (gamepad1.left_stick_y + gamepad1.left_stick_x * .1));
+                    motorRB.setPower(1 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x * .1)));
+                    motorLB.setPower(1 * (gamepad1.left_stick_y - gamepad1.left_stick_x * .1));
+                    motorLF.setPower(1 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x * .1)));
+                } else {
+                    motorRF.setPower(.75 * (gamepad1.left_stick_y + gamepad1.left_stick_x * .5));
+                    motorRB.setPower(.75 * (-(gamepad1.left_stick_y + gamepad1.left_stick_x * .5)));
+                    motorLB.setPower(.75 * (gamepad1.left_stick_y - gamepad1.left_stick_x * .5));
+                    motorLF.setPower(.75 * (-(gamepad1.left_stick_y - gamepad1.left_stick_x * .5)));
+                }
             }
 
             if (gamepad1.left_bumper) {
