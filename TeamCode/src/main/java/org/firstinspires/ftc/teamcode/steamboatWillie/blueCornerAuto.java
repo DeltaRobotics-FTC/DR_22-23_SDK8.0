@@ -28,10 +28,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Autonomous(name="redCornerAuto")
+@Autonomous(name="blueCornerAuto")
 //@Disabled
 
-public class redCornerAuto extends LinearOpMode
+public class blueCornerAuto extends LinearOpMode
 {
     BNO055IMU imu;
     Orientation angles;
@@ -301,6 +301,9 @@ public class redCornerAuto extends LinearOpMode
             //this a backup for if the webcam fails
             autoStart();
             programmable();
+            encoderDriveForward(210, -1);
+            betterPivot(-90);
+            encoderDriveForward(2270,1);
         }
     }
 
@@ -658,13 +661,14 @@ public class redCornerAuto extends LinearOpMode
     /*
     --junction location key--
         1   2   3
- start^ 4   5   6
+        4   5   6 ^start
         7   8   9
-        you stand here -->
+            <-- you stand here
     */
     //TODO adjust all time drives based on robot speed
     //TODO adjust all turning angles
     //TODO adjust all slide positions
+    //TODO change all junction functions so they work on the blue side
 
     // one encoder tick = 0.02426 inches
     // desired distance in inches / 0.02426 inches = encoder ticks needed
@@ -682,10 +686,10 @@ public class redCornerAuto extends LinearOpMode
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
-        encoderDriveForward(1400,-1);
-        sleep(3000);
+        encoderDriveForward(2800,-1);
+        sleep(6000);
 
-        betterPivot(45);
+        betterPivot(-135);
 
         slidePose1 = 50;
         slidePose0 = 50;
@@ -703,9 +707,9 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(500,-1);
         sleep(500);
 
-        betterPivot(-45);
-        encoderDriveForward(1000,1);
-        sleep(1500);
+        betterPivot(135);
+        encoderDriveForward(2400,1);
+        sleep(3000);
     }
     public void junction_2(){
         drive(1,0.5,500);
@@ -722,6 +726,88 @@ public class redCornerAuto extends LinearOpMode
 
         encoderDriveForward(1400,-1);
         sleep(3000);
+
+        betterPivot(-135);
+
+        slidePose1 = 800;
+        slidePose0 = 800;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        Claw0.setPosition(.3);
+        Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        slidePose1 = 50;
+        slidePose0 = 50;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        betterPivot(135);
+        encoderDriveForward(1000,1);
+        sleep(1500);
+    }
+    public void junction_3(){
+        drive(1,0.5,500);
+        sleep(500);
+
+        Claw0.setPosition(.6);
+        Claw1.setPosition(.4);
+
+        slidePose1 = 400;
+        slidePose0 = 400;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(1400,-1);
+        sleep(3000);
+
+        betterPivot(-45);
+
+        slidePose1 = 50;
+        slidePose0 = 50;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(500,1);
+        sleep(500);
+
+        Claw0.setPosition(.3);
+        Claw1.setPosition(.7);
+        sleep(500);
+
+        encoderDriveForward(500,-1);
+        sleep(500);
+
+        betterPivot(45);
+        encoderDriveForward(1000,1);
+        sleep(1500);
+    }
+    public void junction_4(){
+        drive(1,0.5,500);
+        sleep(500);
+
+        Claw0.setPosition(.6);
+        Claw1.setPosition(.4);
+
+        slidePose1 = 400;
+        slidePose0 = 400;
+
+        liftSlides(slidePose1, slidePose0);
+        sleep(1000);
+
+        encoderDriveForward(2800,-1);
+        sleep(6000);
 
         betterPivot(135);
 
@@ -748,90 +834,8 @@ public class redCornerAuto extends LinearOpMode
         sleep(1000);
 
         betterPivot(-135);
-        encoderDriveForward(1000,1);
-        sleep(1500);
-    }
-    public void junction_3(){
-        drive(1,0.5,500);
-        sleep(500);
-
-        Claw0.setPosition(.6);
-        Claw1.setPosition(.4);
-
-        slidePose1 = 400;
-        slidePose0 = 400;
-
-        liftSlides(slidePose1, slidePose0);
-        sleep(1000);
-
-        encoderDriveForward(2800,-1);
-        sleep(6000);
-
-        betterPivot(135);
-
-        slidePose1 = 50;
-        slidePose0 = 50;
-
-        liftSlides(slidePose1, slidePose0);
-        sleep(1000);
-
-        encoderDriveForward(500,1);
-        sleep(500);
-
-        Claw0.setPosition(.3);
-        Claw1.setPosition(.7);
-        sleep(500);
-
-        encoderDriveForward(500,-1);
-        sleep(500);
-
-        betterPivot(-135);
         encoderDriveForward(2400,1);
         sleep(3000);
-    }
-    public void junction_4(){
-        drive(1,0.5,500);
-        sleep(500);
-
-        Claw0.setPosition(.6);
-        Claw1.setPosition(.4);
-
-        slidePose1 = 400;
-        slidePose0 = 400;
-
-        liftSlides(slidePose1, slidePose0);
-        sleep(1000);
-
-        encoderDriveForward(1400,-1);
-        sleep(3000);
-
-        betterPivot(-45);
-
-        slidePose1 = 266;
-        slidePose0 = 266;
-
-        liftSlides(slidePose1, slidePose0);
-        sleep(1000);
-
-        encoderDriveForward(500,1);
-        sleep(500);
-
-        Claw0.setPosition(.3);
-        Claw1.setPosition(.7);
-        sleep(500);
-
-        encoderDriveForward(500,-1);
-        sleep(500);
-
-        slidePose1 = 50;
-        slidePose0 = 50;
-
-        liftSlides(slidePose1, slidePose0);
-        sleep(1000);
-
-        betterPivot(45);
-        encoderDriveForward(1000,1);
-        sleep(1500);
     }
     public void junction_5(){
         drive(1,0.5,500);
@@ -849,7 +853,7 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(1400,-1);
         sleep(3000);
 
-        betterPivot(-135);
+        betterPivot(135);
 
         slidePose1 = 533;
         slidePose0 = 533;
@@ -873,7 +877,7 @@ public class redCornerAuto extends LinearOpMode
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
-        betterPivot(135);
+        betterPivot(-135);
         encoderDriveForward(1000,1);
         sleep(1500);
     }
@@ -890,13 +894,13 @@ public class redCornerAuto extends LinearOpMode
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
-        encoderDriveForward(2800,-1);
-        sleep(6000);
+        encoderDriveForward(1400,-1);
+        sleep(3000);
 
-        betterPivot(-135);
+        betterPivot(45);
 
-        slidePose1 = 800;
-        slidePose0 = 800;
+        slidePose1 = 266;
+        slidePose0 = 266;
 
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
@@ -917,9 +921,9 @@ public class redCornerAuto extends LinearOpMode
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
-        betterPivot(135);
-        encoderDriveForward(2400,1);
-        sleep(3000);
+        betterPivot(-45);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
     public void junction_7(){
         drive(1,0.5,500);
@@ -934,10 +938,10 @@ public class redCornerAuto extends LinearOpMode
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
-        encoderDriveForward(1400,-1);
-        sleep(3000);
+        encoderDriveForward(2800,-1);
+        sleep(6000);
 
-        betterPivot(-90);
+        betterPivot(90);
         sleep(500);
 
         encoderDriveForward(1400,1);
@@ -967,9 +971,9 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(1400,-1);
         sleep(3000);
 
-        betterPivot(-90);
-        encoderDriveForward(1000,1);
-        sleep(1500);
+        betterPivot(90);
+        encoderDriveForward(2400,1);
+        sleep(3000);
     }
     public void junction_8(){
         drive(1,0.5,500);
@@ -1017,13 +1021,13 @@ public class redCornerAuto extends LinearOpMode
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
-        betterPivot(-45);
+        betterPivot(45);
         sleep(500);
 
         encoderDriveForward(1400,-1);
         sleep(3000);
 
-        betterPivot(-90);
+        betterPivot(90);
         encoderDriveForward(1000,1);
         sleep(1500);
     }
@@ -1040,10 +1044,10 @@ public class redCornerAuto extends LinearOpMode
         liftSlides(slidePose1, slidePose0);
         sleep(1000);
 
-        encoderDriveForward(2800,-1);
-        sleep(6000);
+        encoderDriveForward(1400,-1);
+        sleep(3000);
 
-        betterPivot(-90);
+        betterPivot(90);
         sleep(500);
 
         encoderDriveForward(1400,1);
@@ -1073,8 +1077,8 @@ public class redCornerAuto extends LinearOpMode
         encoderDriveForward(1400,-1);
         sleep(3000);
 
-        betterPivot(-90);
-        encoderDriveForward(2400,1);
-        sleep(3000);
+        betterPivot(90);
+        encoderDriveForward(1000,1);
+        sleep(1500);
     }
 }

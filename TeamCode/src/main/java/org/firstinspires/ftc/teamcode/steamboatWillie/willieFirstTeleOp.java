@@ -41,6 +41,9 @@ public class willieFirstTeleOp extends LinearOpMode
 
     int setJoysticks = 0;
 
+    boolean DpadLeftToggle = true;
+    boolean DpadRightToggle = true;
+
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -196,15 +199,41 @@ public class willieFirstTeleOp extends LinearOpMode
                 }
             //}
 
+/*
+            if(gamepad2.dpad_left){
+                slidePose1 += 1;
+                slidePose0 -= 1;
+            }
+            else if(gamepad2.dpad_right){
+                slidePose1 -= 1;
+                slidePose0 += 1;
+            }
 
-            //if(gamepad2.dpad_left){
-            //    slidePose1 += 1;
-            //    slidePose0 -= 1;
-            //}
-            //else if(gamepad2.dpad_right){
-            //    slidePose1 -= 1;
-            //    slidePose0 += 1;
-            //}
+ */
+
+            if (gamepad2.dpad_left && DpadLeftToggle)
+            {
+                slidePose1 += 1;
+                slidePose0 -= 1;
+
+                DpadLeftToggle = false;
+            }
+            else if (!gamepad2.dpad_left && !DpadLeftToggle)
+            {
+                DpadLeftToggle = true;
+            }
+
+            if (gamepad2.dpad_right && DpadRightToggle)
+            {
+                slidePose1 -= 1;
+                slidePose0 += 1;
+
+                DpadRightToggle = false;
+            }
+            else if (!gamepad2.dpad_right && !DpadRightToggle)
+            {
+                DpadRightToggle = true;
+            }
 
             /*
             if(gamepad2.a)
@@ -284,171 +313,46 @@ public class willieFirstTeleOp extends LinearOpMode
                 slidePosTarget = 0;
             }
 
+
+
             if(slidePosTarget == 1)
             {
-                if(Slide1.getCurrentPosition() > slidePosDown)
-                {
-                    //while (Slide1.getCurrentPosition() > slidePosDown)
-                    //{
-                        Slide1.setTargetPosition(slidePosDown);
-                        Slide0.setTargetPosition(slidePosDown);
-                        Slide1.setPower(-0.15);
-                        Slide0.setPower(-0.15);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
-
-                if(Slide1.getCurrentPosition() < slidePosDown)
-                {
-                    //while (Slide1.getCurrentPosition() < slidePosDown)
-                    //{
-                        Slide1.setTargetPosition(slidePosDown);
-                        Slide0.setTargetPosition(slidePosDown);
-                        Slide1.setPower(.5);
-                        Slide0.setPower(.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
                 slidePose1 = slidePosDown;
                 slidePose0 = slidePosDown;
             }
 
             else if(slidePosTarget == 2)
             {
-                if(Slide1.getCurrentPosition() > slidePosMid)
-                {
-                    //while (Slide1.getCurrentPosition() > slidePosMid)
-                    //{
-                        Slide1.setTargetPosition(slidePosMid);
-                        Slide0.setTargetPosition(slidePosMid);
-                        Slide1.setPower(-0.25);
-                        Slide0.setPower(-0.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
-
-                if(Slide1.getCurrentPosition() < slidePosMid)
-                {
-                    //while (Slide1.getCurrentPosition() < slidePosMid)
-                    //{
-                        Slide1.setTargetPosition(slidePosMid);
-                        Slide0.setTargetPosition(slidePosMid);
-                        Slide1.setPower(.5);
-                        Slide0.setPower(.5);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
                 slidePose1 = slidePosMid;
                 slidePose0 = slidePosMid;
             }
 
             else if(slidePosTarget == 3)
             {
-                if(Slide1.getCurrentPosition() > slidePosJunction)
-                {
-                    //while (Slide1.getCurrentPosition() > slidePosJunction)
-                    //{
-                        Slide1.setTargetPosition(slidePosJunction);
-                        Slide0.setTargetPosition(slidePosJunction);
-                        Slide1.setPower(-0.25);
-                        Slide0.setPower(-0.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
-
-                if(Slide1.getCurrentPosition() < slidePosJunction)
-                {
-                    //while (Slide1.getCurrentPosition() < slidePosJunction)
-                    //{
-                        Slide1.setTargetPosition(slidePosJunction);
-                        Slide0.setTargetPosition(slidePosJunction);
-                        Slide1.setPower(1);
-                        Slide0.setPower(1);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
                 slidePose1 = slidePosJunction;
                 slidePose0 = slidePosJunction;
             }
 
             else if(slidePosTarget == 4)
             {
-                if(Slide1.getCurrentPosition() > slidePosLow)
-                {
-                    //while (Slide1.getCurrentPosition() > slidePosLow)
-                    //{
-                        Slide1.setTargetPosition(slidePosLow);
-                        Slide0.setTargetPosition(slidePosLow);
-                        Slide1.setPower(-0.25);
-                        Slide0.setPower(-0.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
-
-                if(Slide1.getCurrentPosition() < slidePosLow)
-                {
-                    //while (Slide1.getCurrentPosition() < slidePosLow)
-                    //{
-                        Slide1.setTargetPosition(slidePosLow);
-                        Slide0.setTargetPosition(slidePosLow);
-                        Slide1.setPower(1);
-                        Slide0.setPower(1);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
                 slidePose1 = slidePosLow;
                 slidePose0 = slidePosLow;
             }
 
             else if(slidePosTarget == 5)
             {
-                if(Slide1.getCurrentPosition() > slidePosTall)
-                {
-                    //while (Slide1.getCurrentPosition() > slidePosTall)
-                    //{
-                        Slide1.setTargetPosition(slidePosTall);
-                        Slide0.setTargetPosition(slidePosTall);
-                        Slide1.setPower(-0.25);
-                        Slide0.setPower(-0.25);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
-
-                if(Slide1.getCurrentPosition() < slidePosTall)
-                {
-                    //while (Slide1.getCurrentPosition() < slidePosTall)
-                    //{
-                        Slide1.setTargetPosition(slidePosTall);
-                        Slide0.setTargetPosition(slidePosTall);
-                        Slide1.setPower(1);
-                        Slide0.setPower(1);
-                        Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                        Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    //}
-                }
                 slidePose1 = slidePosTall;
                 slidePose0 = slidePosTall;
             }
             else {
+
                 if(Slide1.getCurrentPosition() > slidePose1)
                 {
                     //while (Slide1.getCurrentPosition() > slidePosTall)
                     //{
                     Slide1.setTargetPosition(slidePose1);
-                    Slide0.setTargetPosition(slidePose0);
-                    Slide1.setPower(-0.25);
-                    Slide0.setPower(-0.25);
+                    Slide1.setPower(-0.75);
                     Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                    Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     //}
                 }
 
@@ -457,10 +361,27 @@ public class willieFirstTeleOp extends LinearOpMode
                     //while (Slide1.getCurrentPosition() < slidePosTall)
                     //{
                     Slide1.setTargetPosition(slidePose1);
-                    Slide0.setTargetPosition(slidePose0);
-                    Slide1.setPower(1);
-                    Slide0.setPower(1);
+                    Slide1.setPower(.75);
                     Slide1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    //}
+                }
+
+                if(Slide0.getCurrentPosition() > slidePose0)
+                {
+                    //while (Slide1.getCurrentPosition() > slidePosTall)
+                    //{
+                    Slide0.setTargetPosition(slidePose0);
+                    Slide0.setPower(-0.75);
+                    Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                    //}
+                }
+
+                if(Slide0.getCurrentPosition() < slidePose0)
+                {
+                    //while (Slide1.getCurrentPosition() < slidePosTall)
+                    //{
+                    Slide0.setTargetPosition(slidePose0);
+                    Slide0.setPower(.75);
                     Slide0.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     //}
                 }
